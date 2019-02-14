@@ -1,0 +1,8 @@
+<button mat-button [matMenuTriggerFor]="menu">{{menuItemGroup.text}}</button>
+<mat-menu #menu="matMenu">
+  <mat-list role="list" class="max-width">
+    <mat-list-item role="listitem" *ngFor="let menuItem of menuItemGroup.children">
+      <menu-item  [menuItem]="menuItem"></menu-item>
+    </mat-list-item>
+  </mat-list>
+</mat-menu>

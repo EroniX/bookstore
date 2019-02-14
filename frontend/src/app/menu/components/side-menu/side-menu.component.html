@@ -1,0 +1,10 @@
+<ng-container *ngIf="menu">
+  <ng-container *ngFor="let menuItemBase of menu.menuItemBases">
+    <ng-container *ngIf="isMenuItem(menuItemBase); else elseBlock">
+      <side-menu-item [menuItem]="menuItemBase"></side-menu-item>
+    </ng-container>
+    <ng-template #elseBlock>
+      <side-menu-item-group [menuItemGroup]="menuItemBase"></side-menu-item-group>
+    </ng-template>
+  </ng-container>
+</ng-container>

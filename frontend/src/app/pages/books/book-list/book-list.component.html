@@ -1,0 +1,91 @@
+<div class="page-body">
+  <h2 class="mat-h2">All Books</h2>
+
+  <mat-table #table [dataSource]="availableBooks">
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Title</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.title}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="publisher">
+      <mat-header-cell *matHeaderCellDef> Publisher</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.publisher}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef> Category</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.category}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="writers">
+      <mat-header-cell *matHeaderCellDef> Writers</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.writers.join(', ')}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="availablePieces">
+      <mat-header-cell *matHeaderCellDef> Available Pieces</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.availablePieces}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="operation">
+        <mat-header-cell *matHeaderCellDef > Operation</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <button mat-raised-button color="primary" (click)="openDialog(element.preface)" matTooltip="Read">
+                <mat-icon>chrome_reader_mode</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" *ngIf="!element.rented && element.availablePieces > 0"
+               (click)="rent(element.id)" matTooltip="Rent">
+                <mat-icon>add_shopping_cart</mat-icon>
+            </button>
+          </mat-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <br/>
+  <h2 class="mat-h2">Rented Books</h2>
+
+  <mat-table #table [dataSource]="rentedBooks">
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Title</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.title}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="publisher">
+      <mat-header-cell *matHeaderCellDef> Publisher</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.publisher}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef> Category</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.category}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="writers">
+      <mat-header-cell *matHeaderCellDef> Writers</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.writers.join(', ')}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="availablePieces">
+      <mat-header-cell *matHeaderCellDef> Available Pieces</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.availablePieces}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="operation">
+        <mat-header-cell *matHeaderCellDef > Operation</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <button mat-raised-button color="primary" (click)="openDialog(element.content)" matTooltip="Read">
+                <mat-icon>chrome_reader_mode</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" (click)="deleteRent(element.id)" matTooltip="Delete the rent">
+                <mat-icon>highlight_off</mat-icon>
+            </button>
+        </mat-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

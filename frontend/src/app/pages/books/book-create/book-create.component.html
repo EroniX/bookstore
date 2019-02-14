@@ -1,0 +1,90 @@
+<div class="page-body" id="book-page">
+    <h2 class="mat-h2">Create a Book</h2>
+    <form [formGroup]="bookForm" novalidate>
+        <div class="form-control">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Title" formControlName="title">
+            <mat-error *ngIf="title.hasError('required')">
+              Title is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-control">
+          <mat-form-field class="example-full-width">
+            <input type="number" matInput placeholder="Number of pieces" formControlName="maxPieces">
+            <mat-error *ngIf="maxPieces.hasError('required')">
+              Number of pieces is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="maxPieces.hasError('max')">
+              Number of pieces is <strong>too big</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-control">
+          <mat-form-field class="example-full-width">
+            <textarea matInput placeholder="Preface" formControlName="preface" maxlength="200"></textarea>
+            <mat-hint align="end">{{preface.value.length}} / 200</mat-hint>
+            <mat-error *ngIf="preface.hasError('required')">
+              Preface is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-control">
+          <mat-form-field class="example-full-width">
+            <textarea matInput placeholder="Content" formControlName="content" maxlength="5000"></textarea>
+            <mat-hint align="end">{{content.value.length}} / 5000</mat-hint>
+            <mat-error *ngIf="content.hasError('required')">
+              Content is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-control">
+          <mat-form-field>
+            <mat-select formControlName="publisher" placeholder="Publisher">
+              <mat-option *ngFor="let publisher of bookCreationSelectLists.publishers"
+                [value]="publisher.id">
+                {{ publisher.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="publisher.hasError('required')">
+              Publisher is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-control">
+          <mat-form-field>
+            <mat-select formControlName="category" placeholder="Category">
+              <mat-option *ngFor="let category of bookCreationSelectLists.categories"
+                [value]="category.id">
+                {{ category.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="category.hasError('required')">
+              Category is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-control">
+          <mat-form-field>
+            <mat-select formControlName="writers" placeholder="Writers" multiple>
+              <mat-option *ngFor="let writer of bookCreationSelectLists.writers"
+                [value]="writer.id">
+                {{ writer.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="writers.hasError('required')">
+              Writer is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      <button mat-raised-button class="mat-primary" (click)="submit()" [disabled]="!bookForm.valid">Create</button>
+      <a mat-button class="mat-accent" routerLink="/books">Back</a>
+    </form>
+  </div>

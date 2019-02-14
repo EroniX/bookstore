@@ -1,4 +1,5 @@
 export class BookCreation {
+  
   title: String;
   preface: String;
   publisher: number;

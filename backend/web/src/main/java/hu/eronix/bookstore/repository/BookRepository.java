@@ -13,5 +13,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     @Query("SELECT book FROM Book book WHERE book.maxPieces > size(book.renters)")
     List<Book> findAllAvailable();
 
+    List<Book> findAll();
+
     List<Book> findByTitle(String title);
 }

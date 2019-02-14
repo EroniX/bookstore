@@ -1,7 +1,7 @@
 <div class="page-body">
   <h2 class="mat-h2">All Books</h2>
 
-  <mat-table #table [dataSource]="availableBooks">
+  <mat-table #table [dataSource]="allBooks">
     <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef> Title</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.title}}</mat-cell>

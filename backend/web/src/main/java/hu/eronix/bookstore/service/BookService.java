@@ -1,5 +1,7 @@
 package hu.eronix.bookstore.service;
 
+import com.sun.istack.internal.NotNull;
+import hu.eronix.bookstore.exceptions.BookAlreadyExistsException;
 import hu.eronix.bookstore.exceptions.CodeDictionaryGroupNotFoundException;
 import hu.eronix.bookstore.exceptions.CodeDictionaryItemNotFoundException;
 import hu.eronix.bookstore.model.dto.BookCreationDto;
@@ -11,13 +13,16 @@ import hu.eronix.bookstore.model.entity.User;
 import java.util.List;
 
 public interface BookService {
+
+    List<BookDetailsDto> findAll(User user);
+
     List<BookDetailsDto> findAllAvailable(User user);
 
     List<BookDetailsDto> findAllRented(User user);
 
     BookCreationSelectListsDto createBookCreationSelectListsDto() throws CodeDictionaryGroupNotFoundException;
 
-    void create(BookCreationDto bookCreationDto) throws CodeDictionaryItemNotFoundException;
+    void create(BookCreationDto bookCreationDto) throws CodeDictionaryItemNotFoundException, BookAlreadyExistsException;
 
     void delete(long bookId);
 

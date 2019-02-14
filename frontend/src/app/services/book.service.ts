@@ -15,6 +15,11 @@ export class BookService {
   constructor(private http: HttpService) {
   }
 
+  findAll(): Observable<BookDetails[]> {
+    return this.http.get(Server.routeTo(Routes.BOOKS) + '/findAll')
+      .map(res => res.json());
+  }
+
   findAllAvailable(): Observable<BookDetails[]> {
     return this.http.get(Server.routeTo(Routes.BOOKS) + '/findAllAvailable')
       .map(res => res.json());

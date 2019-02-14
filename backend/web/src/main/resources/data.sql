@@ -22,12 +22,15 @@ INSERT INTO code_dictionary_items (id, version, code_dictionary_group_id, value)
 INSERT INTO code_dictionary_items (id, version, code_dictionary_group_id, value) VALUES (8, 0, 3, 'Sci-fi');
 INSERT INTO code_dictionary_items (id, version, code_dictionary_group_id, value) VALUES (9, 0, 3, 'Thriller');
 
-INSERT INTO books (id, version, publisher_id, category_id, title, content, max_pieces)
-  VALUES (1, 0, 4, 7, 'Harry Potter 1', 'Blabla', 10);
-INSERT INTO books (id, version, publisher_id, category_id, title, content, max_pieces)
-  VALUES (2, 0, 5, 8, 'Harry Potter 2', 'Blabla', 10);
-INSERT INTO books (id, version, publisher_id, category_id, title, content, max_pieces)
-  VALUES (3, 0, 6, 9, 'Harry Potter 3', 'Blabla', 10);
+INSERT INTO books (id, version, publisher_id, category_id, title, content, max_pieces, preface)
+  VALUES (1, 0, 4, 7, 'Harry Potter 1',
+  'Tartalom tartalom tartalom tartalom', 10, 'Bevezetés bevezetés bevezetés bevezetés bevezetés');
+INSERT INTO books (id, version, publisher_id, category_id, title, content, max_pieces, preface)
+  VALUES (2, 0, 5, 8, 'Harry Potter 2',
+  'Tartalom  tartalom tartalom tartalom', 0, 'Bevezetés bevezetés bevezetés bevezetés bevezetés');
+INSERT INTO books (id, version, publisher_id, category_id, title, content, max_pieces, preface)
+  VALUES (3, 0, 6, 9, 'Harry Potter 3',
+  'Tartalom  tartalom tartalom tartalom', 10, 'Bevezetés bevezetés bevezetés bevezetés bevezetés');
 
 INSERT INTO books_writers (book_id, code_dictionary_group_id) VALUES (1, 1);
 INSERT INTO books_writers (book_id, code_dictionary_group_id) VALUES (1, 2);

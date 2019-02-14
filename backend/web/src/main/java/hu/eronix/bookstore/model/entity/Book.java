@@ -46,7 +46,7 @@ public class Book extends BaseEntity {
     private int maxPieces;
 
     public int getAvailablePieces() {
-        return maxPieces - writers.size();
+        return maxPieces - renters.size();
     }
 
     public boolean hasAvailablePieces() {

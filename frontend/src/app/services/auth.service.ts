@@ -5,7 +5,6 @@ import {Http} from '@angular/http';
 import decode from 'jwt-decode';
 import { Server, Routes } from '../utils/ServerRoutes';
 import { User } from '../model/User';
-import { HttpService } from './http.service';
 
 @Injectable()
 export class AuthService {
@@ -16,10 +15,7 @@ export class AuthService {
 
   login(user: User) {
     return this.http.post(Server.routeTo(Routes.LOGIN), user)
-      .map(res => {
-        console.log(res.json().token);
-        this.setToken(res.json().token);
-      });
+      .map(res => this.setToken(res.json().token));
   }
 
   logout(): void {

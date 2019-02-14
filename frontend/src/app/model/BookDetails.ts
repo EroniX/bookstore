@@ -1,4 +1,5 @@
 export class BookDetails {
+  
   id: number;
   title: String;
   publisher: String;

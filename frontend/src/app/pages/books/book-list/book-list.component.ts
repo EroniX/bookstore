@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class BookListComponent {
   displayedColumns: String[] =
     ['title', 'publisher', 'category', 'writers', 'availablePieces', 'operation'];
-  availableBooks: DataSource<any> = new AvailableBooksDataSource(this.bookService);
+  allBooks: DataSource<any> = new AllBooksDataSource(this.bookService);
   rentedBooks: DataSource<any> = new RentedBooksDataSource(this.bookService);
 
   constructor(private bookService: BookService, public dialog: MatDialog) {
@@ -41,13 +41,13 @@ export class BookListComponent {
   }
 }
 
-export class AvailableBooksDataSource extends DataSource<any> {
+export class AllBooksDataSource extends DataSource<any> {
   constructor(private bookService: BookService) {
     super();
   }
 
   connect(): Observable<BookDetails[]> {
-    return this.bookService.findAllAvailable();
+    return this.bookService.findAll();
   }
 
   disconnect() {

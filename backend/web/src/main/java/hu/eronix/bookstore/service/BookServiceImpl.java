@@ -2,6 +2,7 @@ package hu.eronix.bookstore.service;
 
 import com.sun.istack.internal.NotNull;
 import hu.eronix.bookstore.converter.BookConverter;
+import hu.eronix.bookstore.exceptions.BookAlreadyExistsException;
 import hu.eronix.bookstore.exceptions.CodeDictionaryGroupNotFoundException;
 import hu.eronix.bookstore.exceptions.CodeDictionaryItemNotFoundException;
 import hu.eronix.bookstore.model.CodeDictionaryGroupType;
@@ -46,6 +47,13 @@ public class BookServiceImpl implements BookService {
         this.bookConverter = bookConverter;
     }
 
+    public List<BookDetailsDto> findAll(@NotNull User user) {
+        return bookRepository.findAll()
+                .stream()
+                .map(book -> bookConverter.toBookDetailsDto(user, book))
+                .collect(Collectors.toList());
+    }
+
     @Override
     @Transactional
     public List<BookDetailsDto> findAllAvailable(@NotNull User user) {
@@ -83,7 +91,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public void create(@NotNull BookCreationDto bookCreationDto) throws CodeDictionaryItemNotFoundException {
+    public void create(@NotNull BookCreationDto bookCreationDto)
+            throws CodeDictionaryItemNotFoundException, BookAlreadyExistsException {
+        if(isBookExists(bookCreationDto.getTitle(), bookCreationDto.getWriters())) {
+            throw new BookAlreadyExistsException();
+        }
         Book book = bookConverter.toBook(bookCreationDto);
         bookRepository.save(book);
     }

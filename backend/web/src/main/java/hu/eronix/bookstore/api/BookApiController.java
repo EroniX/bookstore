@@ -1,5 +1,6 @@
 package hu.eronix.bookstore.api;
 
+import hu.eronix.bookstore.exceptions.BookAlreadyExistsException;
 import hu.eronix.bookstore.exceptions.CodeDictionaryGroupNotFoundException;
 import hu.eronix.bookstore.exceptions.CodeDictionaryItemNotFoundException;
 import hu.eronix.bookstore.exceptions.NotAuthenticatedException;
@@ -34,6 +35,12 @@ public class BookApiController {
         return ResponseEntity.ok(bookDetailsDtos);
     }
 
+    @GetMapping("/findAll")
+    public ResponseEntity<Iterable<BookDetailsDto>> findAll() throws NotAuthenticatedException {
+        Iterable<BookDetailsDto> bookDetailsDtos = bookService.findAll(securityService.getUser());
+        return ResponseEntity.ok(bookDetailsDtos);
+    }
+
     @GetMapping("/findAllRented")
     public ResponseEntity<Iterable<BookDetailsDto>> findAllRented() throws NotAuthenticatedException {
         Iterable<BookDetailsDto> bookDetailsDtos = bookService.findAllRented(securityService.getUser());
@@ -48,7 +55,8 @@ public class BookApiController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity create(@Valid @RequestBody BookCreationDto bookCreationDto) throws CodeDictionaryItemNotFoundException {
+    public ResponseEntity create(@Valid @RequestBody BookCreationDto bookCreationDto)
+            throws CodeDictionaryItemNotFoundException, BookAlreadyExistsException {
         bookService.create(bookCreationDto);
         return ResponseEntity.ok().build();
     }
